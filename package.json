@@ -1,0 +1,38 @@
+{
+  "name": "bbcomponents",
+  "version": "1.0.0",
+  "description": "An open source repository for common React components used in UI design",
+  "main": "dist/bbcomponents.min.js",
+  "scripts": {
+    "build": "rollup -c -o dist/bbcomponents.min.js",
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thebusinessbay/bbcomponents.git"
+  },
+  "keywords": [
+    "React",
+    "components",
+    "chat",
+    "UI",
+    "reactjs"
+  ],
+  "author": "BusinessBay",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thebusinessbay/bbcomponents/issues"
+  },
+  "homepage": "https://github.com/thebusinessbay/bbcomponents#readme",
+  "devDependencies": {
+    "@babel/core": "^7.5.4",
+    "@babel/preset-env": "^7.5.4",
+    "@babel/preset-react": "^7.0.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-react": "^6.24.1",
+    "react": "^16.8.6",
+    "rollup": "^1.16.7",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-uglify": "^6.0.2"
+  }
+}
