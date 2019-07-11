@@ -1,6 +1,6 @@
 {
   "name": "bbcomponents",
-  "version": "1.0.3",
+  "version": "1.0.2",
   "description": "An open source repository for common React components used in UI design",
   "main": "dist/bbcomponents.min.js",
   "scripts": {
