@@ -5,7 +5,8 @@
   "main": "dist/bbcomponents.min.js",
   "scripts": {
     "build": "rollup -c -o dist/bbcomponents.min.js",
-    "test": "npm test"
+    "test": "npm test",
+    "watch": "watch 'npm run build' ./src"
   },
   "repository": {
     "type": "git",
@@ -34,5 +35,10 @@
     "rollup": "^1.16.7",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-uglify": "^6.0.2"
+  },
+  "dependencies": {
+    "font-awesome": "^4.7.0",
+    "react-tooltip": "^3.10.0",
+    "watch": "^1.0.2"
   }
 }
