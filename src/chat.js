@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import ReactTooltip from 'react-tooltip'
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faComment } from '@fortawesome/free-solid-svg-icons'
-
+import { faComment } from '@fortawesome/free-solid-svg-icons';
+import ChatBox from './chatbox';
 
 const ChatCircle = styled.div`
     position: fixed;
@@ -22,14 +22,36 @@ const ChatCircle = styled.div`
 `;
 
 class Chat extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            isShownChatbox: false,
+            clickedCounter: 0,
+        }
+
+        this.toggleChatBox = this.toggleChatBox.bind(this);
+    }
+
+    toggleChatBox() {
+        this.setState({...this.state, isShownChatbox: !this.state.isShownChatbox, clickedCounter: this.state.clickedCounter+1});
+    }
+
     render() {
         return (
-            <ChatCircle data-tip data-for='hover-msg' mainColor="#282c34">
-                <FontAwesomeIcon icon={faComment}/>
-                <ReactTooltip id='hover-msg' effect='solid'>
-                    <span>¿Buscabas algo o tienes alguna duda?, inicia un chat</span>
-                </ReactTooltip>
-            </ChatCircle>
+            <>
+                <ChatCircle data-tip data-for='hover-msg' mainColor="#282c34" onClick={this.toggleChatBox}>
+                    <FontAwesomeIcon icon={faComment} size="2x"/>
+                    <ReactTooltip id='hover-msg' effect='solid'>
+                        <span>¿Buscabas algo o tienes alguna duda?, inicia un chat</span>
+                    </ReactTooltip>
+                </ChatCircle>
+                <ChatBox
+                    isShown={this.state.isShownChatbox}
+                    isMounted={this.state.isMountedChatbox}
+                    toogleAction={this.toggleChatBox}
+                    animate={this.state.clickedCounter}
+                />
+            </>
         );
     }
 }
