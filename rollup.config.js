@@ -1,8 +1,8 @@
 import { uglify } from 'rollup-plugin-uglify';
 import babel from 'rollup-plugin-babel';
 import resolve from 'rollup-plugin-node-resolve';
-import commonJS from 'rollup-plugin-commonjs'
-
+import replace from 'rollup-plugin-replace';
+import commonjs from 'rollup-plugin-commonjs'
 
 const config = {
     input: 'src/components.js',
@@ -10,18 +10,22 @@ const config = {
         format: 'umd',
         name: 'components',
         globals: {
-            react: "React"
+            react: "React",
+            "react-tooltip": "React tooltip",
+            "styled-components": "styled-components"
         }
     },
+    external: ["react", "react-tooltip", "styled-components"],
     plugins: [
-        postcss({
-            extensions: [ '.css' ],
-        }),
-        babel(),
-        resolve(),
-        commonJS({
-        include: 'node_modules/**'
-        })
+        replace({
+            'process.env.NODE_ENV': JSON.stringify( 'production')
+          }),
+          babel({
+            exclude: "node_modules/**"
+          }),
+          resolve(),
+          commonjs(),
+          uglify(),
     ],
 }
 export default config

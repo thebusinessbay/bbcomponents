@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import ReactTooltip from 'react-tooltip'
 import styled from 'styled-components';
-import 'font-awesome/css/font-awesome.min.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faComment } from '@fortawesome/free-solid-svg-icons'
+
 
 const ChatCircle = styled.div`
     position: fixed;
@@ -23,7 +25,7 @@ class Chat extends Component {
     render() {
         return (
             <ChatCircle data-tip data-for='hover-msg' mainColor="#282c34">
-                <i className="fa fa-comment fa-2x"></i>
+                <FontAwesomeIcon icon={faComment}/>
                 <ReactTooltip id='hover-msg' effect='solid'>
                     <span>¿Buscabas algo o tienes alguna duda?, inicia un chat</span>
                 </ReactTooltip>
