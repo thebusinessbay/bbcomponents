@@ -34,6 +34,9 @@
     "react": "^16.8.6",
     "rollup": "^1.16.7",
     "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-commonjs": "^10.0.1",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-postcss": "^2.0.3",
     "rollup-plugin-uglify": "^6.0.2"
   },
   "dependencies": {

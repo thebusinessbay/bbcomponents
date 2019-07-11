@@ -1,9 +1,11 @@
-import { uglify } from 'rollup-plugin-uglify'
+import { uglify } from 'rollup-plugin-uglify';
 import babel from 'rollup-plugin-babel';
+import resolve from 'rollup-plugin-node-resolve';
+import commonJS from 'rollup-plugin-commonjs'
+
 
 const config = {
     input: 'src/components.js',
-    external: ['react'],
     output: {
         format: 'umd',
         name: 'components',
@@ -12,10 +14,14 @@ const config = {
         }
     },
     plugins: [
-        babel({
-            exclude: "node_modules/**"
+        postcss({
+            extensions: [ '.css' ],
         }),
-        uglify()
+        babel(),
+        resolve(),
+        commonJS({
+        include: 'node_modules/**'
+        })
     ],
 }
 export default config
