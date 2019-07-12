@@ -50,6 +50,8 @@ class Chat extends Component {
                     isMounted={this.state.isMountedChatbox}
                     toogleAction={this.toggleChatBox}
                     animate={this.state.clickedCounter}
+                    mainColor="#282c34"
+                    headerTextColor="white"
                 />
             </>
         );
