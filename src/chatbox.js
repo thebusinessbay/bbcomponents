@@ -15,6 +15,21 @@ const StyledChatBox = styled.div`
         z-index: 1000;
         width: 328px;
     }
+
+    @media(max-width: 768px){
+        .chat {
+            display: none;
+            background-color: transparent;
+            position: fixed;
+            bottom: 0px;
+            right: 0px;
+            transition: all 0.3s ease-out;
+            z-index: 1000;
+            width: 100%;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+    }
     
     .chat-open {
         display: block;
@@ -75,7 +90,8 @@ const ChatBoxBody = styled.div`
         right: 0;
         height: 75%;
         position: absolute;
-        z-index: 0;   
+        z-index: 0;
+        width: 95%;
     }
 `;
 
@@ -101,14 +117,89 @@ const ChatBoxInputWrapper = styled.div`
         border-top: none;
         border-bottom-right-radius: 5px;
         border-bottom-left-radius: 5px;
-        overflow: hidden;  
+        overflow: hidden;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 14px;
     }
-
+    
     .chat-send-icon {
         position: fixed;
         margin-top: 15px;
         right: 8px;
         cursor: pointer;
+    }
+
+    @media(max-width: 768px){
+        padding-right: 20px;
+        
+        .chat-send-icon {
+            right: 20px;
+        }
+    }
+`;
+
+const MessagesContainer = styled.div`
+    height: calc(100% - 47px);
+    z-index: 100;
+    overflow-y: auto;
+
+    .msg {
+        display: flex;
+        align-items: flex-end;
+        margin-bottom: 10px;
+    }
+    
+    .msg:last-of-type {
+        margin: 0;
+    }
+    
+    .msg-img {
+        width: 50px;
+        height: 50px;
+        margin-right: 10px;
+        background: #ddd;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        border-radius: 50%;
+    }
+    
+    .msg-bubble {
+        max-width: 450px;
+        padding: 15px;
+        border-radius: 15px;
+        background: white;
+    }
+    
+    .msg-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    .msg-info-name {
+        margin-right: 10px;
+        font-weight: bold;
+    }
+
+    .msg-info-time {
+        font-size: 0.85em;
+    }
+
+    .left-msg .msg-bubble {
+        border-bottom-left-radius: 0;
+    }
+
+    .right-msg {
+        flex-direction: row-reverse;
+    }
+    .right-msg .msg-bubble {
+        background: #579ffb;
+        color: #fff;
+        border-bottom-right-radius: 0;
+    }
+    .right-msg .msg-img {
+        margin: 0 0 0 10px;
     }
 `;
 
@@ -117,14 +208,30 @@ const ChatBox = ({
     toogleAction,
     animate,
     mainColor,
-    headerTextColor
+    headerTextColor,
+    messages,
   }) => {
 
     const cssClasses = [
-        "chat chat-open",
+        "chat",
         animate && isShown ? "chat-open" : "",
         animate && !isShown ? "chat-closed" : ""
     ];
+
+    const mappedMessages = messages.map(message => (
+        <div className={message.type === "agent" ? "msg left-msg" : "msg right-msg"}>
+            <div class="msg-img" style={{backgroundImage: "url(https://image.flaticon.com/icons/svg/327/327779.svg)"}}></div>
+            <div class="msg-bubble">
+                <div class="msg-info">
+                    <div class="msg-info-name">BOT</div>
+                    <div class="msg-info-time">12:45</div>
+                </div>
+                <div class="msg-text">
+                    {message.message}
+                </div>
+            </div>
+        </div>
+    )); 
     
     return (
         <StyledChatBox>
@@ -138,6 +245,9 @@ const ChatBox = ({
                     </div>
                 </ChatBoxHeader>
                 <ChatBoxBody>
+                    <MessagesContainer>
+                        {mappedMessages}
+                    </MessagesContainer>
                     <ChatBoxInputWrapper>
                         <input type="text" className="chat-input" placeholder="Escribe un mensaje"/>
                         <FontAwesomeIcon className="chat-send-icon" icon={faPaperPlane}/>
@@ -149,3 +259,4 @@ const ChatBox = ({
 };
 
 export default ChatBox;
+MessagesContainer
