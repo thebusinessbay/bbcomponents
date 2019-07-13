@@ -14,11 +14,15 @@ const ChatCircle = styled.div`
     height: 80px;  
     border-radius: 50%;
     color: white;
-    padding: 24px;
     cursor: pointer;
     box-shadow: 0px 3px 16px 0px rgba(0, 0, 0, 0.6), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-    z-index: 100;
+    z-index: 10;
     opacity: 0.9;
+
+    .message-icon {
+        padding-top: 22px;
+        font-size: 50px;
+    }
 `;
 
 class Chat extends Component {
@@ -28,6 +32,27 @@ class Chat extends Component {
             isShownChatbox: false,
             clickedCounter: 0,
             messages:  [
+                {
+                    id: "100",
+                    name: "Sonoritmo",
+                    message: "Hola cliente",
+                    timestamp: "2019-07-13 12:00:00",
+                    type: "agent",
+                },
+                {
+                    id: "101",
+                    name: "William",
+                    message: "Hola sonoritmo",
+                    timestamp: "2019-07-13 12:00:01",
+                    type: "customer",
+                },
+                {
+                    id: "102",
+                    name: "Sonoritmo",
+                    message: "en que te ayudo?",
+                    timestamp: "2019-07-13 12:00:02",
+                    type: "agent",
+                },
                 {
                     id: "100",
                     name: "Sonoritmo",
@@ -63,7 +88,7 @@ class Chat extends Component {
         return (
             <>
                 <ChatCircle data-tip data-for='hover-msg' mainColor="#282c34" onClick={this.toggleChatBox}>
-                    <FontAwesomeIcon icon={faComment} size="2x"/>
+                    <FontAwesomeIcon icon={faComment} size="2x" className="message-icon"/>
                     <ReactTooltip id='hover-msg' effect='solid'>
                         <span>¿Buscabas algo o tienes alguna duda?, inicia un chat</span>
                     </ReactTooltip>
