@@ -21,7 +21,6 @@ const ChatCircle = styled.div`
 
     .message-icon {
         padding-top: 22px;
-        font-size: 50px;
     }
 `;
 
@@ -29,6 +28,10 @@ class Chat extends Component {
     constructor(props){
         super(props);
         this.state = {
+            title: "Sonoritmo",
+            buttonPlaceholder: "¿Buscabas algo o tienes alguna duda?, inicia un chat",
+            agentProfilePicUrl: "https://image.flaticon.com/icons/svg/327/327779.svg",
+            customerProfilePicUrl: "https://lh5.googleusercontent.com/-DcksDlQ970o/AAAAAAAAAAI/AAAAAAAAACo/AKfwigGQO3U/photo.jpg",
             isShownChatbox: false,
             clickedCounter: 0,
             messages:  [
@@ -54,34 +57,55 @@ class Chat extends Component {
                     type: "agent",
                 },
                 {
-                    id: "100",
+                    id: "104",
                     name: "Sonoritmo",
                     message: "Hola cliente",
                     timestamp: "2019-07-13 12:00:00",
                     type: "agent",
                 },
                 {
-                    id: "101",
+                    id: "105",
                     name: "William",
                     message: "Hola sonoritmo",
                     timestamp: "2019-07-13 12:00:01",
                     type: "customer",
                 },
                 {
-                    id: "102",
+                    id: "106",
                     name: "Sonoritmo",
                     message: "en que te ayudo?",
                     timestamp: "2019-07-13 12:00:02",
                     type: "agent",
                 },
-            ]
+            ],
+            messageInputValue: "",
         }
 
         this.toggleChatBox = this.toggleChatBox.bind(this);
+        this.messageInputChangeHandler = this.messageInputChangeHandler.bind(this);
+        this.submitMessageInputhandler = this.submitMessageInputhandler.bind(this);
     }
 
     toggleChatBox() {
         this.setState({...this.state, isShownChatbox: !this.state.isShownChatbox, clickedCounter: this.state.clickedCounter+1});
+    }
+
+    messageInputChangeHandler(e){
+        this.setState({ ...this.state, messageInputValue: e.target.value });
+    }
+
+    submitMessageInputhandler() {
+        const newMessage = {
+            id: new Date().getTime(),
+            name: "Something",
+            message: this.state.messageInputValue,
+            timestamp: new Date().toISOString().slice(0, 19).replace('T', ' '),
+            type: "customer",
+        }
+
+        console.log(newMessage);
+
+        this.setState({...this.state, messages: [...this.state.messages, newMessage]})
     }
 
     render() {
@@ -90,10 +114,13 @@ class Chat extends Component {
                 <ChatCircle data-tip data-for='hover-msg' mainColor="#282c34" onClick={this.toggleChatBox}>
                     <FontAwesomeIcon icon={faComment} size="2x" className="message-icon"/>
                     <ReactTooltip id='hover-msg' effect='solid'>
-                        <span>¿Buscabas algo o tienes alguna duda?, inicia un chat</span>
+                        <span>{ this.state.buttonPlaceholder }</span>
                     </ReactTooltip>
                 </ChatCircle>
                 <ChatBox
+                    title={this.state.title}
+                    agentProfilePicUrl={this.state.agentProfilePicUrl}
+                    customerProfilePicUrl={this.state.customerProfilePicUrl}
                     isShown={this.state.isShownChatbox}
                     isMounted={this.state.isMountedChatbox}
                     toogleAction={this.toggleChatBox}
@@ -101,6 +128,8 @@ class Chat extends Component {
                     mainColor="#282c34"
                     headerTextColor="white"
                     messages={this.state.messages}
+                    messageInputChangeHandler={this.messageInputChangeHandler}
+                    submitMessageInputhandler={this.submitMessageInputhandler}
                 />
             </>
         );

@@ -186,13 +186,18 @@ const MessagesContainer = styled.div`
     }
 `;
 
-const ChatBox = ({ 
+const ChatBox = ({
+    title,
+    agentProfilePicUrl,
+    customerProfilePicUrl, 
     isShown,
     toogleAction,
     animate,
     mainColor,
     headerTextColor,
     messages,
+    messageInputChangeHandler,
+    submitMessageInputhandler,
   }) => {
 
     const cssClasses = [
@@ -201,20 +206,20 @@ const ChatBox = ({
         animate && !isShown ? "chat-closed" : ""
     ];
 
-    const mappedMessages = messages.map(message => (
-        <div className={message.type === "agent" ? "msg left-msg" : "msg right-msg"}>
-            <div class="msg-img" style={{backgroundImage: "url(https://image.flaticon.com/icons/svg/327/327779.svg)"}}></div>
-            <div class="msg-bubble">
-                <div class="msg-info">
-                    <div class="msg-info-name">BOT</div>
-                    <div class="msg-info-time">12:45</div>
+    const messagesFormated = messages.sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()).map(message => (
+        <div key={message.id} className={message.type === "agent" ? "msg left-msg" : "msg right-msg"}>
+            <div className="msg-img" style={{backgroundImage: `url(${message.type === "agent" ? agentProfilePicUrl : customerProfilePicUrl})` }}></div>
+            <div className="msg-bubble">
+                <div className="msg-info">
+                    <div className="msg-info-name">{ message.name }</div>
+                    <div className="msg-info-time">{ message.timestamp.slice(11,16) }</div>
                 </div>
-                <div class="msg-text">
+                <div className="msg-text">
                     {message.message}
                 </div>
             </div>
         </div>
-    )); 
+    ));
     
     return (
         <StyledChatBox>
@@ -222,18 +227,18 @@ const ChatBox = ({
                 className={cssClasses.join(' ')}
             >
                 <ChatBoxHeader mainColor={mainColor} headerTextColor={headerTextColor}>
-                    <h4 className="title">Sonoritmo</h4>
+                    <h4 className="title">{title}</h4>
                     <div className="close-chat-icon" onClick={toogleAction}>
                         <FontAwesomeIcon icon={faTimes}/>
                     </div>
                 </ChatBoxHeader>
                 <ChatBoxBody>
                     <MessagesContainer>
-                        {mappedMessages}
+                        {messagesFormated}
                     </MessagesContainer>
                     <ChatBoxInputWrapper>
-                        <input type="text" className="chat-input" placeholder="Escribe un mensaje"/>
-                        <FontAwesomeIcon className="chat-send-icon" icon={faPaperPlane}/>
+                        <input type="text" className="chat-input" placeholder="Escribe un mensaje" onChange={messageInputChangeHandler}/>
+                        <FontAwesomeIcon className="chat-send-icon" icon={faPaperPlane} onClick={submitMessageInputhandler}/>
                     </ChatBoxInputWrapper>
                 </ChatBoxBody>
             </div>
