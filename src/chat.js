@@ -28,108 +28,75 @@ class Chat extends Component {
     constructor(props){
         super(props);
         this.state = {
-            title: "Sonoritmo",
-            buttonPlaceholder: "¿Buscabas algo o tienes alguna duda?, inicia un chat",
-            agentProfilePicUrl: "https://image.flaticon.com/icons/svg/327/327779.svg",
-            customerProfilePicUrl: "https://lh5.googleusercontent.com/-DcksDlQ970o/AAAAAAAAAAI/AAAAAAAAACo/AKfwigGQO3U/photo.jpg",
             isShownChatbox: false,
             clickedCounter: 0,
-            messages:  [
-                {
-                    id: "100",
-                    name: "Sonoritmo",
-                    message: "Hola cliente",
-                    timestamp: "2019-07-13 12:00:00",
-                    type: "agent",
-                },
-                {
-                    id: "101",
-                    name: "William",
-                    message: "Hola sonoritmo",
-                    timestamp: "2019-07-13 12:00:01",
-                    type: "customer",
-                },
-                {
-                    id: "102",
-                    name: "Sonoritmo",
-                    message: "en que te ayudo?",
-                    timestamp: "2019-07-13 12:00:02",
-                    type: "agent",
-                },
-                {
-                    id: "104",
-                    name: "Sonoritmo",
-                    message: "Hola cliente",
-                    timestamp: "2019-07-13 12:00:00",
-                    type: "agent",
-                },
-                {
-                    id: "105",
-                    name: "William",
-                    message: "Hola sonoritmo",
-                    timestamp: "2019-07-13 12:00:01",
-                    type: "customer",
-                },
-                {
-                    id: "106",
-                    name: "Sonoritmo",
-                    message: "en que te ayudo?",
-                    timestamp: "2019-07-13 12:00:02",
-                    type: "agent",
-                },
-            ],
             messageInputValue: "",
+            messages: this.props.messages,
         }
 
         this.toggleChatBox = this.toggleChatBox.bind(this);
         this.messageInputChangeHandler = this.messageInputChangeHandler.bind(this);
         this.submitMessageInputhandler = this.submitMessageInputhandler.bind(this);
+        this.messageInpuOnKeyUpHandler = this.messageInpuOnKeyUpHandler.bind(this);
     }
 
     toggleChatBox() {
         this.setState({...this.state, isShownChatbox: !this.state.isShownChatbox, clickedCounter: this.state.clickedCounter+1});
     }
 
+    messageInpuOnKeyUpHandler(e){
+        if(e.key === 'Enter'){
+            this.submitMessageInputhandler();
+        }
+    }
+
     messageInputChangeHandler(e){
         this.setState({ ...this.state, messageInputValue: e.target.value });
     }
 
+    getCurrentLocalDateTime() {
+        return new Date(Date.now()-(new Date()).getTimezoneOffset() * 60000);
+    }
+
     submitMessageInputhandler() {
+        if(!this.state.messageInputValue.length) return;
+        
         const newMessage = {
             id: new Date().getTime(),
-            name: "Something",
+            name: this.props.displayUserName,
             message: this.state.messageInputValue,
-            timestamp: new Date().toISOString().slice(0, 19).replace('T', ' '),
+            timestamp: this.getCurrentLocalDateTime().toISOString().slice(0, 19).replace('T', ' '),
             type: "customer",
+            metadata: this.props.metadata,
         }
 
-        console.log(newMessage);
-
-        this.setState({...this.state, messages: [...this.state.messages, newMessage]})
+        this.setState({...this.state, messages: [...this.state.messages, newMessage], messageInputValue: ""})
+        this.props.newMessageHandler(newMessage);
     }
 
     render() {
         return (
             <>
-                <ChatCircle data-tip data-for='hover-msg' mainColor="#282c34" onClick={this.toggleChatBox}>
+                <ChatCircle data-tip data-for='hover-msg' mainColor="#282c34" onClick={ () => this.props.customerIsAuthenticated ? this.toggleChatBox() : this.props.handleUserAuthentication() }>
                     <FontAwesomeIcon icon={faComment} size="2x" className="message-icon"/>
                     <ReactTooltip id='hover-msg' effect='solid'>
-                        <span>{ this.state.buttonPlaceholder }</span>
+                        <span>{ this.props.buttonPlaceholder }</span>
                     </ReactTooltip>
                 </ChatCircle>
                 <ChatBox
-                    title={this.state.title}
-                    agentProfilePicUrl={this.state.agentProfilePicUrl}
-                    customerProfilePicUrl={this.state.customerProfilePicUrl}
+                    title={this.props.title}
+                    agentProfilePicUrl={this.props.agentProfilePicUrl}
+                    customerProfilePicUrl={this.props.customerProfilePicUrl}
                     isShown={this.state.isShownChatbox}
-                    isMounted={this.state.isMountedChatbox}
                     toogleAction={this.toggleChatBox}
                     animate={this.state.clickedCounter}
-                    mainColor="#282c34"
-                    headerTextColor="white"
+                    mainColor={this.props.mainColor}
+                    headerTextColor={this.props.headerTextColor}
                     messages={this.state.messages}
+                    messageInpuOnKeyUpHandler={this.messageInpuOnKeyUpHandler}
                     messageInputChangeHandler={this.messageInputChangeHandler}
                     submitMessageInputhandler={this.submitMessageInputhandler}
+                    messageInputValue={this.state.messageInputValue}
                 />
             </>
         );

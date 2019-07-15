@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import ScrollableFeed from 'react-scrollable-feed'
 
 const StyledChatBox = styled.div`
 
@@ -16,7 +17,7 @@ const StyledChatBox = styled.div`
         width: 328px;
     }
 
-    @media(max-width: 768px){
+    @media(max-width: 812px){
         .chat {
             display: none;
             background-color: transparent;
@@ -88,7 +89,7 @@ const ChatBoxInputWrapper = styled.div`
     width: 100%;
 
     .chat-input {
-        width: 100%;
+        width: calc(100% - 30px);
         background: #f4f7f9;
         height: 47px;
         border: none;
@@ -109,11 +110,14 @@ const ChatBoxInputWrapper = styled.div`
     .chat-send-icon {
         position: fixed;
         right: 8px;
-        bottom: 15px;
+        bottom: 0px;
+        padding-top: 16px;
+        padding-bottom: 16px;
+        width: 34px;
         cursor: pointer;
     }
 
-    @media(max-width: 768px){
+    @media(max-width: 812px){
         width: calc(100% - 20px);
         
         .chat-send-icon {
@@ -123,7 +127,7 @@ const ChatBoxInputWrapper = styled.div`
 `;
 
 const MessagesContainer = styled.div`
-    height: calc(100% - 47px);
+    height: calc(100% - 27px);
     overflow-y: scroll;
 
     .msg {
@@ -184,6 +188,10 @@ const MessagesContainer = styled.div`
     .right-msg .msg-img {
         margin: 0 0 0 10px;
     }
+    
+    .msg-text {
+        text-align: left;
+    }
 `;
 
 const ChatBox = ({
@@ -198,6 +206,8 @@ const ChatBox = ({
     messages,
     messageInputChangeHandler,
     submitMessageInputhandler,
+    messageInpuOnKeyUpHandler,
+    messageInputValue,
   }) => {
 
     const cssClasses = [
@@ -234,10 +244,12 @@ const ChatBox = ({
                 </ChatBoxHeader>
                 <ChatBoxBody>
                     <MessagesContainer>
-                        {messagesFormated}
+                        <ScrollableFeed>
+                            {messagesFormated}
+                        </ScrollableFeed>
                     </MessagesContainer>
                     <ChatBoxInputWrapper>
-                        <input type="text" className="chat-input" placeholder="Escribe un mensaje" onChange={messageInputChangeHandler}/>
+                        <input type="text" className="chat-input" placeholder="Escribe un mensaje" value={messageInputValue} onChange={messageInputChangeHandler} onKeyUp={messageInpuOnKeyUpHandler} ref={input => input && input.focus()}/>
                         <FontAwesomeIcon className="chat-send-icon" icon={faPaperPlane} onClick={submitMessageInputhandler}/>
                     </ChatBoxInputWrapper>
                 </ChatBoxBody>
