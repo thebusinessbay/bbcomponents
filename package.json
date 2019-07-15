@@ -1,0 +1,52 @@
+{
+  "name": "bbcomponents",
+  "version": "1.0.7",
+  "description": "An open source repository for common React components used in UI design",
+  "main": "dist/bbcomponents.min.js",
+  "scripts": {
+    "build": "rollup -c -o dist/bbcomponents.min.js",
+    "test": "npm test",
+    "watch": "watch 'npm run build' ./src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thebusinessbay/bbcomponents.git"
+  },
+  "keywords": [
+    "React",
+    "components",
+    "chat",
+    "UI",
+    "reactjs"
+  ],
+  "author": "BusinessBay",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thebusinessbay/bbcomponents/issues"
+  },
+  "homepage": "https://github.com/thebusinessbay/bbcomponents#readme",
+  "devDependencies": {
+    "@babel/core": "^7.5.4",
+    "@babel/preset-env": "^7.5.4",
+    "@babel/preset-react": "^7.0.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-react": "^6.24.1",
+    "react": "^16.8.6",
+    "rollup": "^1.16.7",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-commonjs": "^10.0.1",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-postcss": "^2.0.3",
+    "rollup-plugin-replace": "^2.2.0",
+    "rollup-plugin-uglify": "^6.0.2"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.19",
+    "@fortawesome/free-solid-svg-icons": "^5.9.0",
+    "@fortawesome/react-fontawesome": "^0.1.4",
+    "font-awesome": "^4.7.0",
+    "react-scrollable-feed": "^1.0.4",
+    "react-tooltip": "^3.10.0",
+    "watch": "^1.0.2"
+  }
+}
