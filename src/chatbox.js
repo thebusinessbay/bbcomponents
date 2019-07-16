@@ -115,6 +115,7 @@ const ChatBoxInputWrapper = styled.div`
         padding-bottom: 16px;
         width: 34px;
         cursor: pointer;
+        color: black;
     }
 
     @media(max-width: 812px){
@@ -128,7 +129,7 @@ const ChatBoxInputWrapper = styled.div`
 
 const MessagesContainer = styled.div`
     height: calc(100% - 27px);
-    overflow-y: scroll;
+    overflow-y: hidden;
 
     .msg {
         display: flex;
@@ -152,7 +153,7 @@ const MessagesContainer = styled.div`
     }
     
     .msg-bubble {
-        max-width: 450px;
+        max-width: 80%;
         padding: 15px;
         border-radius: 15px;
         background: white;
@@ -190,7 +191,9 @@ const MessagesContainer = styled.div`
     }
     
     .msg-text {
+        overflow-wrap: break-word;
         text-align: left;
+        display: block;
     }
 `;
 
@@ -232,6 +235,7 @@ const ChatBox = ({
     ));
     
     return (
+        (isShown) &&
         <StyledChatBox>
             <div
                 className={cssClasses.join(' ')}

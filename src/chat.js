@@ -6,18 +6,21 @@ import { faComment } from '@fortawesome/free-solid-svg-icons';
 import ChatBox from './chatbox';
 
 const ChatCircle = styled.div`
-    position: fixed;
-    bottom: 30px;
-    right: 20px;
-    background: ${props => props.mainColor || "#5A5EB9"};
-    width: 80px;
-    height: 80px;  
-    border-radius: 50%;
-    color: white;
-    cursor: pointer;
-    box-shadow: 0px 3px 16px 0px rgba(0, 0, 0, 0.6), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-    z-index: 10;
-    opacity: 0.9;
+    
+    .chat-button-circle {
+        position: fixed;
+        bottom: 30px;
+        right: 20px;
+        background: ${props => props.mainColor || "#5A5EB9"};
+        width: 80px;
+        height: 80px;  
+        border-radius: 50%;
+        color: white;
+        cursor: pointer;
+        box-shadow: 0px 3px 16px 0px rgba(0, 0, 0, 0.6), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+        z-index: 10;
+        opacity: 0.9;
+    }
 
     .message-icon {
         padding-top: 22px;
@@ -77,11 +80,13 @@ class Chat extends Component {
     render() {
         return (
             <>
-                <ChatCircle data-tip data-for='hover-msg' mainColor="#282c34" onClick={ () => this.props.customerIsAuthenticated ? this.toggleChatBox() : this.props.handleUserAuthentication() }>
-                    <FontAwesomeIcon icon={faComment} size="2x" className="message-icon"/>
-                    <ReactTooltip id='hover-msg' effect='solid'>
-                        <span>{ this.props.buttonPlaceholder }</span>
-                    </ReactTooltip>
+                <ChatCircle mainColor="#282c34" onClick={ () => this.props.customerIsAuthenticated ? this.toggleChatBox() : this.props.handleUserAuthentication() }>
+                    <div className="chat-button-circle" data-tip data-for='hover-msg'>
+                        <FontAwesomeIcon icon={faComment} size="2x" className="message-icon"/>
+                        <ReactTooltip id='hover-msg' effect='solid'>
+                            <span>{ this.props.buttonPlaceholder }</span>
+                        </ReactTooltip>
+                    </div>
                 </ChatCircle>
                 <ChatBox
                     title={this.props.title}
