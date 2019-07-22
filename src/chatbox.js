@@ -248,7 +248,7 @@ const ChatBox = ({
                 </ChatBoxHeader>
                 <ChatBoxBody>
                     <MessagesContainer>
-                        <ScrollableFeed>
+                        <ScrollableFeed forceScroll>
                             {messagesFormated}
                         </ScrollableFeed>
                     </MessagesContainer>
