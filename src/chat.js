@@ -34,7 +34,6 @@ class Chat extends Component {
             isShownChatbox: false,
             clickedCounter: 0,
             messageInputValue: "",
-            messages: this.props.messages,
         }
 
         this.toggleChatBox = this.toggleChatBox.bind(this);
@@ -73,7 +72,7 @@ class Chat extends Component {
             metadata: this.props.metadata,
         }
 
-        this.setState({...this.state, messages: [...this.state.messages, newMessage], messageInputValue: ""})
+        this.setState({...this.state, messageInputValue: ""})
         this.props.newMessageHandler(newMessage);
     }
 
@@ -97,7 +96,7 @@ class Chat extends Component {
                     animate={this.state.clickedCounter}
                     mainColor={this.props.mainColor}
                     headerTextColor={this.props.headerTextColor}
-                    messages={this.state.messages}
+                    messages={this.props.messages}
                     messageInpuOnKeyUpHandler={this.messageInpuOnKeyUpHandler}
                     messageInputChangeHandler={this.messageInputChangeHandler}
                     submitMessageInputhandler={this.submitMessageInputhandler}
