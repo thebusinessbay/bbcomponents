@@ -203,7 +203,6 @@ const ChatBox = ({
     customerProfilePicUrl, 
     isShown,
     toogleAction,
-    animate,
     mainColor,
     headerTextColor,
     messages,
@@ -215,8 +214,8 @@ const ChatBox = ({
 
     const cssClasses = [
         "chat",
-        animate && isShown ? "chat-open" : "",
-        animate && !isShown ? "chat-closed" : ""
+        isShown ? "chat-open" : "",
+        !isShown ? "chat-closed" : ""
     ];
 
     const messagesFormated = messages.sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()).map(message => (

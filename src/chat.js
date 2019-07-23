@@ -31,19 +31,13 @@ class Chat extends Component {
     constructor(props){
         super(props);
         this.state = {
-            isShownChatbox: false,
-            clickedCounter: 0,
+            isShownChatbox: this.props.isShownChatbox,
             messageInputValue: "",
         }
 
-        this.toggleChatBox = this.toggleChatBox.bind(this);
         this.messageInputChangeHandler = this.messageInputChangeHandler.bind(this);
         this.submitMessageInputhandler = this.submitMessageInputhandler.bind(this);
         this.messageInpuOnKeyUpHandler = this.messageInpuOnKeyUpHandler.bind(this);
-    }
-
-    toggleChatBox() {
-        this.setState({...this.state, isShownChatbox: !this.state.isShownChatbox, clickedCounter: this.state.clickedCounter+1});
     }
 
     messageInpuOnKeyUpHandler(e){
@@ -79,7 +73,7 @@ class Chat extends Component {
     render() {
         return (
             <>
-                <ChatCircle mainColor="#282c34" onClick={ () => this.props.customerIsAuthenticated ? this.toggleChatBox() : this.props.handleUserAuthentication() }>
+                <ChatCircle mainColor="#282c34" onClick={ () => this.props.customerIsAuthenticated ? this.props.toogleChatHandler() : this.props.handleUserAuthentication() }>
                     <div className="chat-button-circle" data-tip data-for='hover-msg'>
                         <FontAwesomeIcon icon={faComment} size="2x" className="message-icon"/>
                         <ReactTooltip id='hover-msg' effect='solid'>
@@ -91,9 +85,8 @@ class Chat extends Component {
                     title={this.props.title}
                     agentProfilePicUrl={this.props.agentProfilePicUrl}
                     customerProfilePicUrl={this.props.customerProfilePicUrl}
-                    isShown={this.state.isShownChatbox}
-                    toogleAction={this.toggleChatBox}
-                    animate={this.state.clickedCounter}
+                    isShown={this.props.isShownChatbox}
+                    toogleAction={this.props.toogleChatHandler}
                     mainColor={this.props.mainColor}
                     headerTextColor={this.props.headerTextColor}
                     messages={this.props.messages}
