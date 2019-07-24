@@ -54,7 +54,6 @@
     "font-awesome": "^4.7.0",
     "react-scrollable-feed": "^1.0.4",
     "react-tooltip": "^3.10.0",
-    "rollup-plugin-node-builtins": "^2.1.2",
     "watch": "^1.0.2"
   },
   "peerDependencies": {
