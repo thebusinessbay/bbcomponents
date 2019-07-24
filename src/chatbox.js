@@ -218,7 +218,7 @@ const ChatBox = ({
         !isShown ? "chat-closed" : ""
     ];
 
-    const messagesFormated = messages.sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()).map(message => (
+    const messagesFormated = messages.sort((a, b) => a.id - b.id).map(message => (
         <div key={message.id} className={message.type === "agent" ? "msg left-msg" : "msg right-msg"}>
             <div className="msg-img" style={{backgroundImage: `url(${message.type === "agent" ? agentProfilePicUrl : customerProfilePicUrl})` }}></div>
             <div className="msg-bubble">
