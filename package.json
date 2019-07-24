@@ -4,9 +4,11 @@
   "description": "An open source repository for common React components used in UI design",
   "main": "dist/bbcomponents.min.js",
   "scripts": {
-    "build": "rollup -c -o dist/bbcomponents.min.js",
+    "build": "NODE_ENV=production rollup -c -o dist/bbcomponents.min.js",
+    "build-dev": "NODE_ENV=development rollup -c -o dist/bbcomponents.min.js",
     "test": "npm test",
-    "watch": "watch 'npm run build' ./src"
+    "watch": "watch 'npm run build' ./src",
+    "watch-dev": "watch 'npm run build-dev' ./src"
   },
   "repository": {
     "type": "git",
@@ -31,10 +33,14 @@
     "@babel/preset-react": "^7.0.0",
     "babel-core": "^6.26.3",
     "babel-preset-react": "^6.24.1",
-    "react": "^16.8.6",
+    "datatables.net": "^1.10.19",
+    "jquery": "^3.4.1",
     "rollup": "^1.16.7",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-commonjs": "^10.0.1",
+    "rollup-plugin-css-porter": "^1.0.2",
+    "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-node-globals": "^1.4.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-postcss": "^2.0.3",
     "rollup-plugin-replace": "^2.2.0",
@@ -44,9 +50,15 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.19",
     "@fortawesome/free-solid-svg-icons": "^5.9.0",
     "@fortawesome/react-fontawesome": "^0.1.4",
+    "datatables.net-se": "^1.10.19",
     "font-awesome": "^4.7.0",
     "react-scrollable-feed": "^1.0.4",
     "react-tooltip": "^3.10.0",
+    "rollup-plugin-node-builtins": "^2.1.2",
     "watch": "^1.0.2"
+  },
+  "peerDependencies": {
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   }
 }
